@@ -3832,7 +3832,7 @@ helpers$1.extend(DatasetController.prototype, {
 	 */
 	_configure: function() {
 		var me = this;
-		me._config = helpers$1.merge(Object.create(null), [
+		me._config = helpers$1.merge({}, [
 			me.chart.options.datasets[me._type],
 			me.getDataset(),
 		], {
@@ -8118,7 +8118,7 @@ var core_scaleService = {
 	},
 	getScaleDefaults: function(type) {
 		// Return the scale defaults merged with the global settings so that we always use the latest ones
-		return this.defaults.hasOwnProperty(type) ? helpers$1.merge(Object.create(null), [core_defaults.scale, this.defaults[type]]) : {};
+		return this.defaults.hasOwnProperty(type) ? helpers$1.merge({}, [core_defaults.scale, this.defaults[type]]) : {};
 	},
 	updateScaleDefaults: function(type, additions) {
 		var me = this;
@@ -9193,7 +9193,7 @@ core_defaults._set('global', {
  * returns a deep copy of the result, thus doesn't alter inputs.
  */
 function mergeScaleConfig(/* config objects ... */) {
-	return helpers$1.merge(Object.create(null), [].slice.call(arguments), {
+	return helpers$1.merge({}, [].slice.call(arguments), {
 		merger: function(key, target, source, options) {
 			if (key === 'xAxes' || key === 'yAxes') {
 				var slen = source[key].length;
@@ -9233,9 +9233,9 @@ function mergeScaleConfig(/* config objects ... */) {
  * a deep copy of the result, thus doesn't alter inputs.
  */
 function mergeConfig(/* config objects ... */) {
-	return helpers$1.merge(Object.create(null), [].slice.call(arguments), {
+	return helpers$1.merge({}, [].slice.call(arguments), {
 		merger: function(key, target, source, options) {
-			var tval = target[key] || Object.create(null);
+			var tval = target[key] || {};
 			var sval = source[key];
 
 			if (key === 'scales') {
@@ -9252,7 +9252,7 @@ function mergeConfig(/* config objects ... */) {
 }
 
 function initConfig(config) {
-	config = config || Object.create(null);
+	config = config || {};
 
 	// Do NOT use mergeConfig for the data object because this method merges arrays
 	// and so would change references to labels and datasets, preventing data updates.
