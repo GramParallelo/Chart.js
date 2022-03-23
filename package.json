@@ -28,6 +28,20 @@
     "dist/*.css",
     "dist/*.js"
   ],
+  "scripts": {
+    "autobuild": "rollup -c -w",
+    "build": "rollup -c",
+    "dev": "karma start --auto-watch --no-single-run --browsers chrome --grep",
+    "dev:ff": "karma start --auto-watch --no-single-run --browsers firefox --grep",
+    "docs": "npm run build && vuepress build docs --no-cache",
+    "docs:dev": "npm run build && vuepress dev docs --no-cache",
+    "lint-js": "eslint \"src/**/*.js\" \"test/**/*.js\" \"docs/**/*.js\"",
+    "lint-md": "eslint \"**/*.md\"",
+    "lint-tsc": "tsc",
+    "lint-types": "eslint \"types/**/*.ts\" && node -r esm types/tests/autogen.js && tsc -p types/tests/",
+    "lint": "concurrently \"npm:lint-*\"",
+    "test": "npm run lint && cross-env NODE_ENV=test karma start --auto-watch --single-run --coverage --grep"
+  },
   "devDependencies": {
     "clean-css": "^4.2.1",
     "coveralls": "^3.0.0",
